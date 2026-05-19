@@ -1,36 +1,50 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+📌 Committee Management System
 
-## Getting Started
+🚀 A Modern System for Managing Committees, Meetings & Tasks Efficiently
 
-First, run the development server:
+📖 Overview
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+The Committee Management System is a web-based application designed to simplify and digitize committee operations. It helps organizations manage members, meetings, tasks, attendance, and documents in one centralized platform.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Whether you're managing a school committee, university society, organization team, or company department, this system provides an organized and efficient workflow.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+✨ Features:
+🔐 Authentication & Security
+Secure Login & Registration
+Role-Based Access Control
+Encrypted Passwords
+Session Management
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+👥 Committee Management:
+1.Create & Manage Committees
+2.Assign Committee Heads
+3.Add or Remove Members
+4.Track Committee Activities
 
-## Learn More
+📅 Meeting Management:
+Schedule Meetings
+Create Agendas
+Upload Meeting Minutes
+Attendance Tracking
+Meeting Notifications
 
-To learn more about Next.js, take a look at the following resources:
+✅ Task Management:
+Assign Tasks to Members
+Set Deadlines
+Track Progress
+Update Task Status
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+📁 Document Management:
+Upload Reports & Files
+Share Documents Securely
+Maintain Digital Records
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+🔔 Notification System:
+Email Alerts
+Meeting Reminders
+Deadline Notifications
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+📊 Reports & Analytics:
+Attendance Reports
+Task Completion Reports
+Committee Performance Analysis
