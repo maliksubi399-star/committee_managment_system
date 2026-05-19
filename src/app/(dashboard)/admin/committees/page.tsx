@@ -2,20 +2,37 @@
 
 import { Search, Lock, Trash2, IndianRupee, Eye, Plus, X, Building2 } from "lucide-react";
 import { useAdminData } from "@/context/AdminDataContext";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { auth } from "@/lib/firebase";
+import { User as FirebaseUser, onAuthStateChanged } from "firebase/auth";
 
 export default function AdminCommittees() {
   const { committees, lockCommittee, deleteCommittee, addCommittee } = useAdminData();
   const [filter, setFilter] = useState("All");
   const [searchQuery, setSearchQuery] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [currentUser, setCurrentUser] = useState<FirebaseUser | null>(null);
+  const [currentUserName, setCurrentUserName] = useState("Admin");
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setCurrentUser(user);
+        const name = user.displayName || user.email?.split("@")[0] || "Admin";
+        setCurrentUserName(name);
+        setCreator(name); // Update creator when user loads
+      }
+    });
+
+    return () => unsubscribe();
+  }, []);
 
   // Form State for new committee
   const [name, setName] = useState("");
   const [duration, setDuration] = useState("10 months");
   const [amount, setAmount] = useState("50,000");
   const [maxMembers, setMaxMembers] = useState(10);
-  const [creator, setCreator] = useState("Maida Amjad");
+  const [creator, setCreator] = useState(currentUserName);
 
   const filteredCommittees = committees.filter((committee) => {
     const matchesFilter = filter === "All" || committee.status === filter;

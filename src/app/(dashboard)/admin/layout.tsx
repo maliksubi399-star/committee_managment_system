@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 import { 
   LayoutDashboard, 
   Users, 
@@ -13,6 +14,8 @@ import {
   Shield
 } from "lucide-react";
 import { AdminDataProvider } from "@/context/AdminDataContext";
+import { auth } from "@/lib/firebase";
+import { User as FirebaseUser, onAuthStateChanged, signOut } from "firebase/auth";
 
 const navigation = [
   { name: "Overview", href: "/admin", icon: LayoutDashboard },
@@ -29,9 +32,43 @@ export default function AdminLayout({
 }) {
   const pathname = usePathname();
   const router = useRouter();
+  const [currentUser, setCurrentUser] = useState<FirebaseUser | null>(null);
+  const [userName, setUserName] = useState("Admin");
+  const [userInitials, setUserInitials] = useState("AD");
 
-  const handleSignOut = () => {
-    router.push("/admin/login");
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setCurrentUser(user);
+        // Get display name or email
+        const name = user.displayName || user.email?.split("@")[0] || "Admin";
+        setUserName(name);
+        
+        // Generate initials
+        const initials = name
+          .split(" ")
+          .map((part) => part[0])
+          .join("")
+          .toUpperCase()
+          .slice(0, 2);
+        setUserInitials(initials || "AD");
+      } else {
+        setCurrentUser(null);
+        setUserName("Admin");
+        setUserInitials("AD");
+      }
+    });
+
+    return () => unsubscribe();
+  }, []);
+
+  const handleSignOut = async () => {
+    try {
+      await signOut(auth);
+      router.push("/admin/login");
+    } catch (error) {
+      console.error("Sign out error:", error);
+    }
   };
 
   return (
@@ -58,10 +95,10 @@ export default function AdminLayout({
           {/* Admin User Info */}
           <div className="p-5 border-b border-[#1E2943] flex items-center gap-4 bg-[#141A33]/50">
             <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-600 to-indigo-700 flex items-center justify-center font-bold text-white shadow-md shadow-blue-500/10">
-              MA
+              {userInitials}
             </div>
             <div>
-              <p className="font-semibold text-sm text-slate-200">Maida Amjad</p>
+              <p className="font-semibold text-sm text-slate-200">{userName}</p>
               <p className="text-[11px] text-slate-400 font-medium">Super Administrator</p>
             </div>
           </div>
